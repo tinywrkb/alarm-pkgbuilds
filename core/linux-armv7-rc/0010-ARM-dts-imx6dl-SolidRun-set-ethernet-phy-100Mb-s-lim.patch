@@ -1,0 +1,45 @@
+From 7a80f0e7bb55bc26bdb66b9673da4f3fa9595962 Mon Sep 17 00:00:00 2001
+From: tinywrkb <tinywrkb@gmail.com>
+Date: Sun, 8 Sep 2019 16:16:12 +0300
+Subject: [PATCH] ARM: dts: imx6dl: SolidRun: set ethernet phy 100Mb/s limit
+
+---
+ arch/arm/boot/dts/imx6dl-cubox-i.dts  | 4 ++++
+ arch/arm/boot/dts/imx6qdl-sr-som.dtsi | 9 +++++++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx6dl-cubox-i.dts b/arch/arm/boot/dts/imx6dl-cubox-i.dts
+index 2b1b3e193f53..cfc82513c78c 100644
+--- a/arch/arm/boot/dts/imx6dl-cubox-i.dts
++++ b/arch/arm/boot/dts/imx6dl-cubox-i.dts
+@@ -49,3 +49,7 @@
+ 	model = "SolidRun Cubox-i Solo/DualLite";
+ 	compatible = "solidrun,cubox-i/dl", "fsl,imx6dl";
+ };
++
++&ethphy {
++	max-speed = <100>;
++};
+diff --git a/arch/arm/boot/dts/imx6qdl-sr-som.dtsi b/arch/arm/boot/dts/imx6qdl-sr-som.dtsi
+index 6d7f6b9035bc..969bc96c3f99 100644
+--- a/arch/arm/boot/dts/imx6qdl-sr-som.dtsi
++++ b/arch/arm/boot/dts/imx6qdl-sr-som.dtsi
+@@ -57,6 +57,15 @@
+ 	phy-reset-duration = <2>;
+ 	phy-reset-gpios = <&gpio4 15 GPIO_ACTIVE_LOW>;
+ 	status = "okay";
++	phy-handle = <&ethphy>;
++	mdio {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		ethphy: ethernet-phy@0 {
++			compatible = "ethernet-phy-ieee802.3-c22";
++			reg = <0>;
++		};
++	};
+ };
+ 
+ &iomuxc {
+-- 
+2.23.0
+
